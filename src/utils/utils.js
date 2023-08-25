@@ -29,3 +29,17 @@ export function getUserLocation() {
     }
   })
 }
+
+export async function getCityInfo(cityName) {
+  const apiKey = `a81cb000c18ce6de18bd0da1c54a94a4`
+
+  const response = await fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${cityName}&appid=${apiKey}`)
+  const data = await response.json()
+  
+  return {
+    country: data[0].country,
+    name: data[0].name,
+    lat: data[0].lat,
+    lon: data[0].lon,
+  }
+}

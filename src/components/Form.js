@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import {convertUnixTimestampToTime, getUserLocation} from '../utils/utils.js'
+import {convertUnixTimestampToTime, getUserLocation, getCityInfo} from '../utils/utils.js'
 
 
 export default function Form(props) {
@@ -51,6 +51,7 @@ export default function Form(props) {
     fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${apiKey}`)
       .then(res => res.json())
       .then(data => {
+        console.log(data)
         const description = data.weather[0].description
         const temperature = Math.round(data.main.temp - 273) // celcius, int
         const sunrise = convertUnixTimestampToTime(data.sys.sunrise)
@@ -62,9 +63,17 @@ export default function Form(props) {
           sunrise: sunrise,
           sunset: sunset,
         }
+
         props.setWeather(newWeather)
       })
       .catch(err => console.log(err))
+  }
+
+  async function one(e) {
+    e.preventDefault()
+    const a = await getCityInfo(`madrid`)
+    console.log(a)
+    
   }
   
   return (
@@ -84,7 +93,7 @@ export default function Form(props) {
         <input 
           type='submit' 
           value='My Location' 
-          onClick={handleSubmitMyLocation}/>
+          onClick={one}/>
       </div>
     </form>
   )

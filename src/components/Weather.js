@@ -4,7 +4,7 @@ import { allKeysAreNull } from '../utils/utils'
 export default function Weather(props) {
   function one() {
     if (allKeysAreNull(props.weather)) {
-      return <h2 style={{textAlign: 'center'}}>Please Enter a City</h2>
+      return <h2 style={{textAlign: 'center'}}>Please enter a city to view weather info</h2>
     } else {
       return viewTemplate
     }
