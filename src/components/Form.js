@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import {convertUnixTimestampToTime} from '../utils/utils.js'
+import {convertUnixTimestampToTime, getUserLocation} from '../utils/utils.js'
 
 
 export default function Form(props) {
@@ -9,7 +9,7 @@ export default function Form(props) {
     props.setLocation(e.target.value)
   }
   
-  function handleSubmit(e) {
+  function handleSubmitCity(e) {
     e.preventDefault()
     fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${props.location}&appid=${apiKey}`)
       .then(res => res.json()) // wait to get the data
@@ -19,7 +19,6 @@ export default function Form(props) {
         fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${apiKey}`)
           .then(res => res.json())
           .then(data => {
-            console.log(data)
             const description = data.weather[0].description
             const temperature = Math.round(data.main.temp - 273) // celcius, int
             const sunrise = convertUnixTimestampToTime(data.sys.sunrise)
@@ -37,15 +36,56 @@ export default function Form(props) {
       }) // do whatever once you have it
       .catch(err => console.log(err)) // if something fails, output error
   }
+
+  async function handleSubmitMyLocation(e) {
+    let latitude;
+    let longitude;
+    e.preventDefault()
+    getUserLocation()
+      .then(data => {
+        latitude = data.latitude
+        longitude = data.longitude
+      })
+      .catch(err => {console.log(err)})  
+
+    fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${apiKey}`)
+      .then(res => res.json())
+      .then(data => {
+        const description = data.weather[0].description
+        const temperature = Math.round(data.main.temp - 273) // celcius, int
+        const sunrise = convertUnixTimestampToTime(data.sys.sunrise)
+        const sunset = convertUnixTimestampToTime(data.sys.sunset)
+
+        let newWeather = {
+          description: description, 
+          temperature: temperature,
+          sunrise: sunrise,
+          sunset: sunset,
+        }
+        props.setWeather(newWeather)
+      })
+      .catch(err => console.log(err))
+  }
   
   return (
-    <form>
-      <input 
-        type="text" 
-        name="location" 
-        placeholder='Enter a city:' 
-        onChange={handleInputChange} />
-      <input type="submit" onClick={handleSubmit} />
+    <form className='flex-form'>
+      <div className='flex-child'>
+        <input 
+          type="text" 
+          name="location" 
+          placeholder='Enter a city:' 
+          onChange={handleInputChange} />
+        <input type="submit" onClick={handleSubmitCity} />  
+      </div>
+      <div className='flex-child'>
+        <h2>OR</h2>
+      </div>
+      <div className='flex-child'>
+        <input 
+          type='submit' 
+          value='My Location' 
+          onClick={handleSubmitMyLocation}/>
+      </div>
     </form>
   )
 }

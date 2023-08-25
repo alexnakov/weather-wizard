@@ -9,21 +9,21 @@ header {
   border-bottom: 4px solid black;
 }
 
-form {
+div.flex-child {
   margin-top: 10px;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-form > input{
-  width: 300px;
+form input{
+  width: 250px;
   padding: 10px 20px;
   margin: 6px 0;
   box-sizing: border-box;
 }
 
-form > input[type=submit] {
+form input[type=submit] {
   background-color: skyblue;
   color: white;
   font-size: x-large;
@@ -31,18 +31,26 @@ form > input[type=submit] {
   border-bottom: 2px solid black;
 }
 
-form > input[type=submit]:hover {
+form input[type=submit]:hover {
   background-color: darkcyan;
   cursor: pointer;
 }
 
-form > input[type=submit]:active {
+form input[type=submit]:active {
   border: 4px dashed yellowgreen;
 }
 
-form > input[type=submit]:focus:not(:active) {
+form input[type=submit]:focus:not(:active) {
   border: none;
   background-color: yellowgreen;
+}
+
+form.flex-form {
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 600px
 }
 
 .weather-container {
