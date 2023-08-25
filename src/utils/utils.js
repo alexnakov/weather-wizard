@@ -13,24 +13,23 @@ export function allKeysAreNull(obj) {
   return Object.keys(obj).every(key => obj[key] === null);
 }
 
-export function getUserLocation() {
-  return new Promise((resolve, reject) => {
-    if ('geolocation' in navigator) {
-      navigator.geolocation.getCurrentPosition((position) => {
-        const latitude = position.coords.latitude
-        const longitude = position.coords.longitude
-        resolve({ latitude, longitude })
-      },
-      (err) => {
-        reject(err)
-      })
-    } else {
-      reject("Geo API not supported")
-    }
-  })
+export function getBrowserLocation() {
+  function success(position) {
+
+  } 
+
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(async (position) => {
+      const latitude = await position.coords.latitude
+      const longitude = await position.coords.longitude
+      return [latitude, longitude]
+    })
+  } else {
+    console.log(`I can't find your browser location`)
+  }
 }
 
-export async function getCityInfo(cityName) {
+export async function getCityLocation(cityName) {
   const apiKey = `a81cb000c18ce6de18bd0da1c54a94a4`
 
   const response = await fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${cityName}&appid=${apiKey}`)
@@ -42,4 +41,13 @@ export async function getCityInfo(cityName) {
     lat: data[0].lat,
     lon: data[0].lon,
   }
+}
+
+export async function getCityFromLatLong(lat, lon) {
+  const apiKey = `AIzaSyBBTBVgKMGeQRMyzyFT3ay-CvYF2ygTJ0I`
+  const url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat}, ${lon}&key=${apiKey}`
+  console.log(url)
+  const response = await fetch(url)
+  const data = await response.json()
+  console.log(data)
 }

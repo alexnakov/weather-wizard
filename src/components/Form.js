@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
-import {convertUnixTimestampToTime, getUserLocation, getCityInfo} from '../utils/utils.js'
+import {convertUnixTimestampToTime, 
+  getCityLocation, getBrowserLocation, getCityFromLatLong} from '../utils/utils.js'
 
 
 export default function Form(props) {
@@ -37,43 +38,41 @@ export default function Form(props) {
       .catch(err => console.log(err)) // if something fails, output error
   }
 
-  async function handleSubmitMyLocation(e) {
-    let latitude;
-    let longitude;
-    e.preventDefault()
-    getUserLocation()
-      .then(data => {
-        latitude = data.latitude
-        longitude = data.longitude
-      })
-      .catch(err => {console.log(err)})  
+  // async function handleSubmitMyLocation(e) {
+  //   let latitude;
+  //   let longitude;
+  //   e.preventDefault()
+  //   getUserLocation()
+  //     .then(data => {
+  //       latitude = data.latitude
+  //       longitude = data.longitude
+  //     })
+  //     .catch(err => {console.log(err)})  
 
-    fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${apiKey}`)
-      .then(res => res.json())
-      .then(data => {
-        console.log(data)
-        const description = data.weather[0].description
-        const temperature = Math.round(data.main.temp - 273) // celcius, int
-        const sunrise = convertUnixTimestampToTime(data.sys.sunrise)
-        const sunset = convertUnixTimestampToTime(data.sys.sunset)
+  //   fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${apiKey}`)
+  //     .then(res => res.json())
+  //     .then(data => {
+  //       console.log(data)
+  //       const description = data.weather[0].description
+  //       const temperature = Math.round(data.main.temp - 273) // celcius, int
+  //       const sunrise = convertUnixTimestampToTime(data.sys.sunrise)
+  //       const sunset = convertUnixTimestampToTime(data.sys.sunset)
 
-        let newWeather = {
-          description: description, 
-          temperature: temperature,
-          sunrise: sunrise,
-          sunset: sunset,
-        }
+  //       let newWeather = {
+  //         description: description, 
+  //         temperature: temperature,
+  //         sunrise: sunrise,
+  //         sunset: sunset,
+  //       }
 
-        props.setWeather(newWeather)
-      })
-      .catch(err => console.log(err))
-  }
+  //       props.setWeather(newWeather)
+  //     })
+  //     .catch(err => console.log(err))
+  // }
 
   async function one(e) {
     e.preventDefault()
-    const a = await getCityInfo(`madrid`)
-    console.log(a)
-    
+    getCityFromLatLong(51.5085, -0.1257)
   }
   
   return (

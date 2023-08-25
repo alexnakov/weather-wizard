@@ -57,6 +57,7 @@ form.flex-form {
   display: flex;
   flex-direction: column;
   align-items: center;
+  border: 3px solid yellow;
 }
 
 .sunrise-set-container {
