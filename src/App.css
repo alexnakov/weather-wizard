@@ -66,9 +66,9 @@ form.flex-form {
   grid-row-gap: 5px;
 }
 
-.div1 { grid-area: 1 / 1 / 2 / 2; border: 2px solid red; }
-.div2 { grid-area: 1 / 2 / 2 / 4; border: 2px solid orange;}
-.div3 { grid-area: 2 / 1 / 3 / 4; border: 2px solid yellow;}
+.today-container { grid-area: 1 / 1 / 2 / 2; border: 2px solid red; }
+.graph-container { grid-area: 1 / 2 / 2 / 4; border: 2px solid orange;}
+.five-day-container { grid-area: 2 / 1 / 3 / 4; border: 2px solid yellow;}
 
 .weather-top {
   border: 3px solid yellow;
@@ -83,7 +83,12 @@ form.flex-form {
   border: 1px solid red;
 }
 
-.temp-untis
+.temp {
+  font-size: 3em;
+  font-family: 'Courier New', Courier, monospace;
+  position: relative;
+  display: inline-block;
+}
 
 .sunrise-set-container {
   display: flex;
