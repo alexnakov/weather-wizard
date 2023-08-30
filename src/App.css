@@ -83,11 +83,55 @@ form.flex-form {
   border: 1px solid red;
 }
 
-.temp {
-  font-size: 3em;
-  font-family: 'Courier New', Courier, monospace;
+.today-container .top  {
+  height: 50%;
+  display: flex;
   position: relative;
-  display: inline-block;
+} 
+
+.icon {
+  border: 1px solid red;
+  flex: 0 0 auto;
+}
+
+.temp-unit-static-container {
+  position: static;
+  border: 1px solid black;
+  flex: 1 1 auto;
+}
+
+.rel-container {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.rel-container > * {
+  position: absolute;
+}
+
+.temp {
+  bottom: 0;
+  font-size: 3rem;
+}
+
+.unit-container {
+  right: 0;
+  font-size: 2rem;
+}
+
+.today-container .bottom {
+  height: 50%;
+  border: 1px solid saddlebrown;
+}
+
+.today-container .bottom p {
+  padding-left: 10px;
+  font-family:Verdana, Geneva, Tahoma, sans-serif ;
+}
+
+.day-stat {
+  margin: 10px 0 10px 0;
 }
 
 .sunrise-set-container {

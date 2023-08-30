@@ -8,8 +8,22 @@ export default function Weather(props) {
     <div className='weather-container-grid'>
       <div className='today-container'>
         <div className='top'>
-          <WiDaySunny size='90px'/>
-          <span className='temp'>15</span>
+          <WiDaySunny size='90px' className="icon"/>
+          <div className="temp-unit-static-container">
+            <div className='rel-container'>
+              <div className='temp'>15</div>
+              <div className='unit-container'>
+                <span>C</span>
+                <span>|</span>
+                <span>F</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className='bottom'>
+          <p className='day-stat'>Humidity: </p>
+          <p className='day-stat'>Humidity: </p>
+          <p className='day-stat'>Humidity: </p>
         </div>
       </div>
       <div className='graph-container'></div>
