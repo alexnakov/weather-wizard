@@ -53,11 +53,86 @@ form.flex-form {
   width: 600px
 }
 
-.weather-container {
+.weather-container-grid {
+  width: 600px;
+  height: 400px;
+  margin: auto;
+
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  grid-column-gap: 5px;
+  grid-row-gap: 5px;
+}
+
+.weather-container-grid > * {
+  border: 2px solid green;
+}
+
+.today-container { grid-area: 1 / 1 / 2 / 2;  }
+.graph-container { grid-area: 1 / 2 / 2 / 4; }
+.five-day-container { grid-area: 2 / 1 / 3 / 4; }
+
+.weather-top {
   display: flex;
-  flex-direction: column;
   align-items: center;
-  border: 3px solid yellow;
+}
+
+.weather-top > * {
+  width: 40px;
+  height: 40px;
+}
+
+.today-container .top  {
+  height: 50%;
+  display: flex;
+  position: relative;
+} 
+
+.w-icon {
+  flex: 0 0 auto;
+  width: 90px !important;
+  height: 90px !important;
+}
+
+.temp-unit-static-container {
+  position: static;
+  flex: 1 1 auto;
+}
+
+.rel-container {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.rel-container > * {
+  position: absolute;
+}
+
+.temp {
+  bottom: 5px;
+  left: 5px;
+  font-size: 3rem;
+}
+
+.unit-container {
+  right: 5px;
+  top: 5px;
+  font-size: 2rem;
+}
+
+.today-container .bottom {
+  height: 50%;
+}
+
+.today-container .bottom p {
+  padding-left: 10px;
+  font-family:Verdana, Geneva, Tahoma, sans-serif ;
+}
+
+.day-stat {
+  margin: 10px 0 10px 0;
 }
 
 .sunrise-set-container {
@@ -65,3 +140,4 @@ form.flex-form {
   justify-content: space-between;
   width: 300px;
 }
+

@@ -9,8 +9,9 @@ export function convertUnixTimestampToTime(unixTimestamp) {
   return `${hours}:${minutes}`;
 }
 
-export function allKeysAreNull(obj) {
-  return Object.keys(obj).every(key => obj[key] === null);
+export function allKeysAreNull(weatherObj) {
+  // Returns true of the object has all null vals, else false
+  return Object.keys(weatherObj).every(key => weatherObj[key] === null);
 }
 
 export function getBrowserLocation() {

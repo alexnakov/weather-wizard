@@ -12,26 +12,46 @@ export default function Form(props) {
   
   function handleSubmitCity(e) {
     e.preventDefault()
+    if (props.location === "") {
+      return;
+    }
+
     fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${props.location}&appid=${apiKey}`)
       .then(res => res.json()) // wait to get the data
       .then(data => {
+        console.log(data)
         const latitude = data[0].lat
         const longitude = data[0].lon
         fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${apiKey}`)
           .then(res => res.json())
           .then(data => {
-            const description = data.weather[0].description
+            console.log(data)
+
+            const city = data.name
+            const country = data.sys.country
+            const mainDescription = data.weather[0].main // weather description str
             const temperature = Math.round(data.main.temp - 273) // celcius, int
+            const cloudiness = data.clouds.all // %
+            const humidity = data.main.humidity  // %
+            const windSpeed = data.wind.speed // m/s
+
+
+            // Not in use but may implement in future
             const sunrise = convertUnixTimestampToTime(data.sys.sunrise)
             const sunset = convertUnixTimestampToTime(data.sys.sunset)
 
             let newWeather = {
-              description: description, 
+              city: city,
+              country: country,
+              mainDescription: mainDescription, 
               temperature: temperature,
-              sunrise: sunrise,
-              sunset: sunset,
+              cloudiness: cloudiness,
+              humidity: humidity,
+              windSpeed: windSpeed
             }
+
             props.setWeather(newWeather)
+            console.log(newWeather)
           })
           .catch(err => console.log(err))
       }) // do whatever once you have it
