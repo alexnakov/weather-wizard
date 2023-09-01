@@ -97,13 +97,26 @@ export async function getCurrentWeatherFromApi(place) {
 }
 
 export async function getNext4DaysData(place) {
-  let data;
+  let data1 = [];
 
   const [latitude, longitude] = await geocodeThePlace(place)
   await fetch(`http://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&appid=a81cb000c18ce6de18bd0da1c54a94a4`)
     .then(res => res.json())
     .then(data => {
       console.log(data)
+      let list = data.list // size 40
+      let returnList = []
+
+      list.forEach(element => {
+        returnList.push({
+          dateText: element.dt_txt,
+          temp: element.main.temp,
+          mainDescription: element.weather[0].main
+        })
+      });
+
+      console.log(returnList)
+
     })
     .catch(err => new Error(err))
 }
