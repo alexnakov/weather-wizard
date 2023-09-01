@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import {convertUnixTimestampToTime, 
-  getCityLocation, getBrowserLocation, getCityFromLatLong} from '../utils/utils.js'
+  getCityLocation, getBrowserLocation, getCityFromLatLong, getCurrentWeatherFromApi} from '../utils/utils.js'
 
 
 export default function Form(props) {
@@ -10,88 +10,15 @@ export default function Form(props) {
     props.setLocation(e.target.value)
   }
   
-  function handleSubmitCity(e) {
+  async function handleSubmitCity(e) {
     e.preventDefault()
     if (props.location === "") {
       return;
     }
 
-    fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${props.location}&appid=${apiKey}`)
-      .then(res => res.json()) // wait to get the data
-      .then(data => {
-        console.log(data)
-        const latitude = data[0].lat
-        const longitude = data[0].lon
-        fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${apiKey}`)
-          .then(res => res.json())
-          .then(data => {
-            console.log(data)
-
-            const city = data.name
-            const country = data.sys.country
-            const mainDescription = data.weather[0].main // weather description str
-            const temperature = Math.round(data.main.temp - 273) // celcius, int
-            const cloudiness = data.clouds.all // %
-            const humidity = data.main.humidity  // %
-            const windSpeed = data.wind.speed // m/s
-
-
-            // Not in use but may implement in future
-            const sunrise = convertUnixTimestampToTime(data.sys.sunrise)
-            const sunset = convertUnixTimestampToTime(data.sys.sunset)
-
-            let newWeather = {
-              city: city,
-              country: country,
-              mainDescription: mainDescription, 
-              temperature: temperature,
-              cloudiness: cloudiness,
-              humidity: humidity,
-              windSpeed: windSpeed
-            }
-
-            props.setWeather(newWeather)
-            console.log(newWeather)
-          })
-          .catch(err => console.log(err))
-      }) // do whatever once you have it
-      .catch(err => {
-        // TODO: need to handle error when no internet available
-        console.log(err)
-      }) // if something fails, output error
+    const newWeather = await getCurrentWeatherFromApi(props.location)
+    props.setCurrentWeather(newWeather)
   }
-
-  // async function handleSubmitMyLocation(e) {
-  //   let latitude;
-  //   let longitude;
-  //   e.preventDefault()
-  //   getUserLocation()
-  //     .then(data => {
-  //       latitude = data.latitude
-  //       longitude = data.longitude
-  //     })
-  //     .catch(err => {console.log(err)})  
-
-  //   fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${apiKey}`)
-  //     .then(res => res.json())
-  //     .then(data => {
-  //       console.log(data)
-  //       const description = data.weather[0].description
-  //       const temperature = Math.round(data.main.temp - 273) // celcius, int
-  //       const sunrise = convertUnixTimestampToTime(data.sys.sunrise)
-  //       const sunset = convertUnixTimestampToTime(data.sys.sunset)
-
-  //       let newWeather = {
-  //         description: description, 
-  //         temperature: temperature,
-  //         sunrise: sunrise,
-  //         sunset: sunset,
-  //       }
-
-  //       props.setWeather(newWeather)
-  //     })
-  //     .catch(err => console.log(err))
-  // }
 
   async function one(e) {
     e.preventDefault()

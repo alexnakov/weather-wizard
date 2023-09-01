@@ -9,18 +9,18 @@ export default function Weather(props) {
   const viewTemplate = (
     <>
       <h2 style={{textAlign: 'center'}}>
-        {props.weather.city}, {props.weather.country}
+        {props.currentWeather.city}, {props.currentWeather.country}
       </h2>
       <div className='weather-container-grid'>
         <div className='today-container'> {/* Must be parent for Today/ to render properly */}
-          <Today weather={props.weather} />
+          <Today currentWeather={props.currentWeather} />
         </div>
         <div className='graph-container'></div>
         <div className='four-day-container'> 
-          <Day weather={props.weather} />
-          <Day weather={props.weather} />
-          <Day weather={props.weather} />
-          <Day weather={props.weather} />  
+          <Day />
+          <Day />
+          <Day />
+          <Day />
         </div>
       </div>
     </>
@@ -28,7 +28,7 @@ export default function Weather(props) {
 
   return (
     <div>
-      {allKeysAreNull(props.weather) ? 
+      {allKeysAreNull(props.currentWeather) ? 
       <h2 style={{textAlign: 'center'}}>Enter a city</h2> : viewTemplate}
     </div>
   )

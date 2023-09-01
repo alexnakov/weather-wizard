@@ -5,7 +5,7 @@ import { useState } from 'react';
 
 function App() {
   const [location, setLocation] = useState("")
-  const [weather, setWeather] = useState({
+  const [currentWeather, setCurrentWeather] = useState({
     city: null,
     country: null,
     mainDescription: null, 
@@ -18,8 +18,9 @@ function App() {
   return (
     <div className="App">
       <header>Weather Wizard</header>
-      <Form location={location} setLocation={setLocation} setWeather={setWeather}/>
-      <Weather weather={weather}/>
+      <button onClick={e => get1(e)}>HiMATE</button>
+      <Form location={location} setLocation={setLocation} setCurrentWeather={setCurrentWeather}/>
+      <Weather currentWeather={currentWeather}/>
     </div>
   );
 }
