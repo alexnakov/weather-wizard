@@ -6,6 +6,8 @@ import { useState } from 'react';
 function App() {
   const [location, setLocation] = useState("")
   const [weather, setWeather] = useState({
+    city: null,
+    country: null,
     mainDescription: null, 
     temperature: null,
     cloudiness: null,
