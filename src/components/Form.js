@@ -55,7 +55,10 @@ export default function Form(props) {
           })
           .catch(err => console.log(err))
       }) // do whatever once you have it
-      .catch(err => console.log(err)) // if something fails, output error
+      .catch(err => {
+        // TODO: need to handle error when no internet available
+        console.log(err)
+      }) // if something fails, output error
   }
 
   // async function handleSubmitMyLocation(e) {

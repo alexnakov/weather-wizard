@@ -1,7 +1,7 @@
 import React from 'react'
 import { allKeysAreNull } from '../utils/utils'
-import FourDay from './FourDay'
 import { iconDescriptionMap } from '../utils/constants'
+import Day from './Day'
 
 export default function Weather(props) {
 
@@ -32,8 +32,11 @@ export default function Weather(props) {
           </div>
         </div>
         <div className='graph-container'></div>
-        <div className='four-day-container'>
-          <FourDay />
+        <div className='four-day-container'> 
+          <Day />
+          <Day />
+          <Day />
+          <Day />
         </div>
       </div>
     </>
