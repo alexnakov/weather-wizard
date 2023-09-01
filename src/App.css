@@ -89,9 +89,11 @@ form.flex-form {
   position: relative;
 } 
 
-.icon {
+.w-icon {
   border: 1px solid red;
   flex: 0 0 auto;
+  width: 90px !important;
+  height: 90px !important;
 }
 
 .temp-unit-static-container {
