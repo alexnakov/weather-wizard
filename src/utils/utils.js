@@ -95,3 +95,15 @@ export async function getCurrentWeatherFromApi(place) {
 
   return newWeather
 }
+
+export async function getNext4DaysData(place) {
+  let data;
+
+  const [latitude, longitude] = await geocodeThePlace(place)
+  await fetch(`http://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&appid=a81cb000c18ce6de18bd0da1c54a94a4`)
+    .then(res => res.json())
+    .then(data => {
+      console.log(data)
+    })
+    .catch(err => new Error(err))
+}

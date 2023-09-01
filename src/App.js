@@ -2,6 +2,7 @@ import './App.css';
 import Form from './components/Form';
 import Weather from './components/Weather';
 import { useState } from 'react';
+import { getNext4DaysData } from './utils/utils';
 
 function App() {
   const [location, setLocation] = useState("")
@@ -19,6 +20,7 @@ function App() {
     <div className="App">
       <header>Weather Wizard</header>
       <Form location={location} setLocation={setLocation} setCurrentWeather={setCurrentWeather}/>
+      <button onClick={() => getNext4DaysData('london')}>Click me</button>
       <Weather currentWeather={currentWeather}/>
     </div>
   );
