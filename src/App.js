@@ -18,7 +18,6 @@ function App() {
   return (
     <div className="App">
       <header>Weather Wizard</header>
-      <button onClick={e => get1(e)}>HiMATE</button>
       <Form location={location} setLocation={setLocation} setCurrentWeather={setCurrentWeather}/>
       <Weather currentWeather={currentWeather}/>
     </div>
