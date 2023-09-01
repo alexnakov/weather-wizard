@@ -1,22 +1,9 @@
 import React from 'react'
 import { allKeysAreNull } from '../utils/utils'
-import { WiDaySunny, WiThunderstorm, WiRain, WiSnow, WiCloud, WiDaySprinkle, WiDayFog } from 'weather-icons-react'
+import FourDay from './FourDay'
+import { iconDescriptionMap } from '../utils/constants'
 
 export default function Weather(props) {
-
-  const iconDescriptionMap = {
-    "Clear": <WiDaySunny className="w-icon"/>,
-    "Thunderstorm": <WiThunderstorm  className="w-icon"/>,
-    "Drizzle": <WiDaySprinkle  className="w-icon"/>,
-    "Rain": <WiRain  className="w-icon"/>,
-    "Snow": <WiSnow  className="w-icon"/>,
-    "Clouds": <WiCloud  className="w-icon"/>,
-    "Mist": <WiDayFog  className="w-icon"/>,
-    "Smoke": <WiDayFog  className="w-icon"/>,
-    "Haze": <WiDayFog  className="w-icon"/>,
-    "Dust": <WiDayFog  className="w-icon"/>,
-    "Fog": <WiDayFog  className="w-icon"/>
-  }
 
   const viewTemplate = (
     <>
@@ -45,7 +32,9 @@ export default function Weather(props) {
           </div>
         </div>
         <div className='graph-container'></div>
-        <div className='five-day-container'></div>
+        <div className='four-day-container'>
+          <FourDay />
+        </div>
       </div>
     </>
       )
