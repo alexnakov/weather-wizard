@@ -17,10 +17,10 @@ export default function Weather(props) {
         </div>
         <div className='graph-container'></div>
         <div className='four-day-container'> 
-          <Day />
-          <Day />
-          <Day />
-          <Day />
+          <Day next4DaysWeather={props.next4DaysWeather[0]}/>
+          <Day next4DaysWeather={props.next4DaysWeather[1]}/>
+          <Day next4DaysWeather={props.next4DaysWeather[2]}/>
+          <Day next4DaysWeather={props.next4DaysWeather[3]}/>
         </div>
       </div>
     </>
