@@ -232,3 +232,23 @@ export function format5Day3HoursWeatherData(data) {
 
   return returnData
 }
+
+export function formatForNext4DataForChart(data) {
+  const todaysDate = data[0].dateText.slice(0, 11)
+
+  let cutData = data.filter(dict => {
+    return dict.dateText.slice(0, 11) !== todaysDate
+  })
+
+  cutData = cutData.slice(0, 32)
+
+  cutData.forEach(obj => {
+    delete obj.mainDescription
+    obj.dateText = obj.dateText.slice(11)
+    obj.dateText = obj.dateText.slice(0, 5)
+    obj.temp = Math.round(obj.temp - 273)
+  })
+
+  console.log(cutData)
+
+}

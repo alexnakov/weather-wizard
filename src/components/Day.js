@@ -10,10 +10,10 @@ export default function Day(props) {
         </div>
         <div className='min-max-flex-container'>
           <div className='max-temp'>
-            {props.next4DaysWeather.minTemp}
+            {props.next4DaysWeather.minTemp}°
           </div>
           <div className='min-temp'>
-            {props.next4DaysWeather.maxTemp}
+            {props.next4DaysWeather.maxTemp}°
           </div>
         </div>
       </div>

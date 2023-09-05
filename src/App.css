@@ -82,7 +82,7 @@ form.flex-form {
 .four-day-container > * {
   height: 100%;
   width: 100%;
-  border: 1px solid red;
+  border: 1px solid black;
 }
 
 .weather-top {
@@ -171,7 +171,7 @@ form.flex-form {
   height: 46px;
   display: flex;
   align-items: center;
-  border: 1px solid blue;
+  border-top: 1px solid black;
 }
 
 .min-temp, .max-temp {

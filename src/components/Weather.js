@@ -3,6 +3,7 @@ import { allKeysAreNull } from '../utils/utils'
 import { iconDescriptionMap } from '../utils/constants'
 import Day from './Day'
 import Today from './Today'
+import TempGraph from './TempGraph'
 
 export default function Weather(props) {
 
@@ -15,7 +16,9 @@ export default function Weather(props) {
         <div className='today-container'> {/* Must be parent for Today/ to render properly */}
           <Today currentWeather={props.currentWeather} />
         </div>
-        <div className='graph-container'></div>
+        <div className='graph-container'>
+          <TempGraph />
+        </div>
         <div className='four-day-container'> 
           <Day next4DaysWeather={props.next4DaysWeather[0]}/>
           <Day next4DaysWeather={props.next4DaysWeather[1]}/>
