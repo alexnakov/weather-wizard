@@ -38,21 +38,21 @@ const data = [
 
 export default function TempGraph() {
   return (
-    <ResponsiveContainer width="100%" height="100%">
+    <ResponsiveContainer width="100%" height="95%">
       <AreaChart
         width={500}
         height={400}
         data={data}
         margin={{
-          top: 10,
-          right: 30,
-          left: -10,
-          bottom: 0,
+          top: 35,
+          right: 20,
+          left: -30,
+          bottom: -10,
         }}
       >
         <CartesianGrid strokeDasharray="3 3" />
-        <XAxis dataKey="dateText" />
-        <YAxis type="number" domain={['dataMin - 3', 'dataMax']} />
+        <XAxis dataKey="dateText" tickCount={4} />
+        <YAxis type="number" domain={['dataMin - 3', 'dataMax']}/>
         <Tooltip />
         <Area type="monotone" dataKey="temp" stroke="#8884d8" fill="#8884d8" />
       </AreaChart>

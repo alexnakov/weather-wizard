@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { allKeysAreNull } from '../utils/utils'
 import { iconDescriptionMap } from '../utils/constants'
 import Day from './Day'
@@ -6,6 +6,13 @@ import Today from './Today'
 import TempGraph from './TempGraph'
 
 export default function Weather(props) {
+  const [clickedArr, setClickedArr] = useState([1, 0, 0, 0])
+
+  function clickDay(dayID) {
+    let newArr = [0, 0, 0, 0]
+    newArr[dayID] = 1
+    setClickedArr(newArr)
+  }
 
   const viewTemplate = (
     <>
@@ -20,10 +27,26 @@ export default function Weather(props) {
           <TempGraph />
         </div>
         <div className='four-day-container'> 
-          <Day next4DaysWeather={props.next4DaysWeather[0]}/>
-          <Day next4DaysWeather={props.next4DaysWeather[1]}/>
-          <Day next4DaysWeather={props.next4DaysWeather[2]}/>
-          <Day next4DaysWeather={props.next4DaysWeather[3]}/>
+          <Day 
+            clickedArr={clickedArr}
+            clickDay={clickDay}
+            dayIndex={0} 
+            next4DaysWeather={props.next4DaysWeather[0]} />
+          <Day 
+            clickedArr={clickedArr}
+            clickDay={clickDay}
+            dayIndex={1} 
+            next4DaysWeather={props.next4DaysWeather[1]} />
+          <Day 
+            clickedArr={clickedArr}
+            clickDay={clickDay}
+            dayIndex={2} 
+            next4DaysWeather={props.next4DaysWeather[2]} />
+          <Day 
+            clickedArr={clickedArr}
+            clickDay={clickDay}
+            dayIndex={3} 
+            next4DaysWeather={props.next4DaysWeather[3]} />
         </div>
       </div>
     </>
