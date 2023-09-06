@@ -11,6 +11,7 @@ export default function Weather(props) {
   function clickDay(dayID) {
     let newArr = [0, 0, 0, 0]
     newArr[dayID] = 1
+    console.log(props.next4DayDataForChart[clickedArr.indexOf(1)])
     setClickedArr(newArr)
   }
 
@@ -24,7 +25,7 @@ export default function Weather(props) {
           <Today currentWeather={props.currentWeather} />
         </div>
         <div className='graph-container'>
-          <TempGraph />
+          <TempGraph data={props.next4DayDataForChart[clickedArr.indexOf(1)]}/>
         </div>
         <div className='four-day-container'> 
           <Day 

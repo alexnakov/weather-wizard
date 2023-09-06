@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import {convertUnixTimestampToTime, 
-  getCityLocation, getBrowserLocation, getCityFromLatLong, getCurrentWeatherFromApi, fetch5Day3HoursWeather, format5Day3HoursWeatherData} from '../utils/utils.js'
+  getCityLocation, getBrowserLocation, getCityFromLatLong, getCurrentWeatherFromApi, fetch5Day3HoursWeather, format5Day3HoursWeatherData, formatForNext4DataForChart} from '../utils/utils.js'
 
 
 export default function Form(props) {
@@ -16,11 +16,12 @@ export default function Form(props) {
       return;
     }
 
-    const newWeather = await getCurrentWeatherFromApi(props.location)
-    const fiveDay3Hours = await fetch5Day3HoursWeather(props.location)
+    const newWeather = await getCurrentWeatherFromApi(props.location) // Today data
+    const fiveDay3Hours = await fetch5Day3HoursWeather(props.location) // next 4 days data
     const fourDayWeather = format5Day3HoursWeatherData(fiveDay3Hours)
     props.setCurrentWeather(newWeather)
     props.setNext4DaysWeather(fourDayWeather)
+    props.setNext4DayDataForChart(formatForNext4DataForChart(fiveDay3Hours))
   }
   
   return (

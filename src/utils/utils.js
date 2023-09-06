@@ -249,6 +249,10 @@ export function formatForNext4DataForChart(data) {
     obj.temp = Math.round(obj.temp - 273)
   })
 
-  console.log(cutData)
-
+  return ( [
+    cutData.slice(0, 8),
+    cutData.slice(8, 16),
+    cutData.slice(16, 24),
+    cutData.slice(24, 32)
+  ] )
 }

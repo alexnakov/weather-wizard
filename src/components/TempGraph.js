@@ -36,13 +36,13 @@ const data = [
   },
 ]
 
-export default function TempGraph() {
+export default function TempGraph(props) {
   return (
     <ResponsiveContainer width="100%" height="95%">
       <AreaChart
         width={500}
         height={400}
-        data={data}
+        data={props.data}
         margin={{
           top: 35,
           right: 20,

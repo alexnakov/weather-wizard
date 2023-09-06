@@ -16,23 +16,21 @@ function App() {
     wind: null,
   })
   const [next4DaysWeather, setNext4DaysWeather] = useState([{},{},{},{}])
-
-  async function one1(e) {
-    e.preventDefault()
-    const data = await fetch5Day3HoursWeather('london')
-    formatForNext4DataForChart(data)
-  }
+  const [next4DayDataForChart, setNext4DayDataForChart] = useState([[],[],[],[]])
 
   return (
     <div className="App">
       <header>Weather Wizard</header>
-      <button onClick={e => one1(e)}>Click ME</button>
       <Form 
         location={location} 
         setLocation={setLocation} 
         setCurrentWeather={setCurrentWeather}
-        setNext4DaysWeather={setNext4DaysWeather} />
-      <Weather currentWeather={currentWeather} next4DaysWeather={next4DaysWeather}/>
+        setNext4DaysWeather={setNext4DaysWeather}
+        setNext4DayDataForChart={setNext4DayDataForChart} />
+      <Weather 
+        currentWeather={currentWeather} 
+        next4DaysWeather={next4DaysWeather} 
+        next4DayDataForChart={next4DayDataForChart} />
     </div>
   );
 }
