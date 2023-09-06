@@ -2,8 +2,8 @@ import React, {useState} from 'react'
 import { iconDescriptionMap } from '../utils/constants'
 
 export default function Day(props) {
-  const unclickedStyle = { border: '1px solid black' }
-  const clickedStyle = { border: '1px solid yellow' }
+  const unclickedStyle = { backgroundColor: 'white' }
+  const clickedStyle = { backgroundColor: 'pink' }
 
   function handleSelfClick() {
     props.clickDay(props.dayIndex)
