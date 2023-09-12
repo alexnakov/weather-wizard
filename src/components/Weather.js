@@ -1,27 +1,29 @@
-import React, { useState } from 'react'
+import React, { createContext, useState } from 'react'
 import { allKeysAreNull } from '../utils/utils'
 import { iconDescriptionMap } from '../utils/constants'
 import Day from './Day'
 import Today from './Today'
 import TempGraph from './TempGraph'
 
+export const Context = createContext()
+
 export default function Weather(props) {
   const [clickedArr, setClickedArr] = useState([1, 0, 0, 0])
+  const [celciusOrFahrenheit, setCelciusOrFahrenheit] = useState(true) // true if celcius, false is fahrenheit
 
   function clickDay(dayID) {
     let newArr = [0, 0, 0, 0]
     newArr[dayID] = 1
-    console.log(props.next4DayDataForChart[clickedArr.indexOf(1)])
     setClickedArr(newArr)
   }
 
   const viewTemplate = (
-    <>
+    <Context.Provider value={[celciusOrFahrenheit, setCelciusOrFahrenheit]}>
       <h2 style={{textAlign: 'center'}}>
         {props.currentWeather.city}, {props.currentWeather.country}
       </h2>
       <div className='weather-container-grid'>
-        <div className='today-container'> {/* Must be parent for Today/ to render properly */}
+        <div className='today-container'>
           <Today currentWeather={props.currentWeather} />
         </div>
         <div className='graph-container'>
@@ -50,8 +52,8 @@ export default function Weather(props) {
             next4DaysWeather={props.next4DaysWeather[3]} />
         </div>
       </div>
-    </>
-      )
+    </Context.Provider>
+  )
 
   return (
     <div>

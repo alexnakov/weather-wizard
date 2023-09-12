@@ -1,18 +1,36 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { iconDescriptionMap } from '../utils/constants'
+import { Context } from './Weather'
 
 export default function Today(props) {
+  const [celciusOrFahrenheit, setCelciusOrFahrenheit] = useContext(Context)
+
+  const celciusStyle = celciusOrFahrenheit ? {color: 'black'} : {color: 'grey'}
+  const fahrenheitStyle = celciusOrFahrenheit ? {color: 'grey'} : {color: 'black'}
+
+  function temperature() {
+    if (celciusOrFahrenheit === true) {
+      return props.currentWeather.temperature
+    } else {
+      return Math.round(props.currentWeather.temperature * 9/5 + 32)
+    }
+  }
+
+  function onClickUnit() {
+    setCelciusOrFahrenheit(!celciusOrFahrenheit)
+  }
+
   return (
     <div>
       <div className='top'>
         {iconDescriptionMap[props.currentWeather.mainDescription]}
         <div className="temp-unit-static-container">
           <div className='rel-container'>
-            <div className='temp'>{props.currentWeather.temperature}</div>
+            <div className='temp'>{temperature()}</div>
             <div className='unit-container'>
-              <span>C</span>
+              <span onClick={onClickUnit} style={celciusStyle}>C</span>
               <span>|</span>
-              <span>F</span>
+              <span onClick={onClickUnit} style={fahrenheitStyle}>F</span>
             </div>
           </div>
         </div>

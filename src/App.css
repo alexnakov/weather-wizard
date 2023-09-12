@@ -134,6 +134,10 @@ form.flex-form {
   font-size: 2rem;
 }
 
+.unit-container > * {
+  cursor: pointer;
+}
+
 .today-container .bottom {
   height: 50%;
 }

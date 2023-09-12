@@ -1,7 +1,11 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
+import { Context } from './Weather';
 
 export default function TempGraph(props) {
+  const [celciusOrFahrenheit] = useContext(Context)
+
+
   return (
     <ResponsiveContainer width="100%" height="95%">
       <AreaChart
