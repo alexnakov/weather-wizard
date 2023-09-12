@@ -1,6 +1,4 @@
-import {weatherApiKey} from "../../secrets.JSON"
-
-const weatherApiKey1 = weatherApiKey;
+import { weatherApiKey } from '../secrets'
 
 export function convertUnixTimestampToTime(unixTimestamp) {
   /** 
@@ -18,24 +16,8 @@ export function allKeysAreNull(weatherObj) {
   return Object.keys(weatherObj).every(key => weatherObj[key] === null);
 }
 
-export function getBrowserLocation() {
-  function success(position) {
-
-  } 
-
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(async (position) => {
-      const latitude = await position.coords.latitude
-      const longitude = await position.coords.longitude
-      return [latitude, longitude]
-    })
-  } else {
-    console.log(`I can't find your browser location`)
-  }
-}
-
 export async function getCityLocation(cityName) {
-  const response = await fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${cityName}&appid=${weatherApiKey1}`)
+  const response = await fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${cityName}&appid=${weatherApiKey}`)
   const data = await response.json()
   
   return {
@@ -50,7 +32,7 @@ export async function geocodeThePlace(place) {
   let latitude;
   let longitude;
 
-  await fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${place}&appid=${weatherApiKey1}`)
+  await fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${place}&appid=${weatherApiKey}`)
     .then(res => res.json())
     .then(data => {
       latitude = data[0].lat
@@ -73,7 +55,7 @@ export async function getCurrentWeatherFromApi(place) {
     windSpeed: null,
   }
 
-  await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${weatherApiKey1}`)
+  await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${weatherApiKey}`)
     .then(res => res.json())
     .then(data => {
       newWeather.city = data.name
@@ -96,7 +78,7 @@ export async function fetch5Day3HoursWeather(place) {
 
   let returnData = []
   const [latitude, longitude] = await geocodeThePlace(place)
-  await fetch(`http://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&appid=a81cb000c18ce6de18bd0da1c54a94a4`)
+  await fetch(`http://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&appid=${weatherApiKey}`)
     .then(res => res.json())
     .then(data => {
       data.list.forEach(element => {
@@ -116,7 +98,7 @@ function mode(array) {
   /**
    * returns the highest occuring element in an array
    */
-  if(array.length == 0)
+  if (array.length == 0)
       return null;
   var modeMap = {};
   var maxEl = array[0], maxCount = 1;

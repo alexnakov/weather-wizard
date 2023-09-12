@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import {convertUnixTimestampToTime, 
-  getCityLocation, getBrowserLocation, getCurrentWeatherFromApi, fetch5Day3HoursWeather, format5Day3HoursWeatherData, formatForNext4DataForChart} from '../utils/utils.js'
+  getCityLocation, getCurrentWeatherFromApi, fetch5Day3HoursWeather, format5Day3HoursWeatherData, formatForNext4DataForChart} from '../utils/utils.js'
 
 
 export default function Form(props) {
