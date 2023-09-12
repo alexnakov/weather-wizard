@@ -1,3 +1,7 @@
+import {weatherApiKey} from "../../secrets.JSON"
+
+const weatherApiKey1 = weatherApiKey;
+
 export function convertUnixTimestampToTime(unixTimestamp) {
   /** 
   * @param {number} unixTimestamp - the unix timestamp
@@ -31,9 +35,7 @@ export function getBrowserLocation() {
 }
 
 export async function getCityLocation(cityName) {
-  const apiKey = `a81cb000c18ce6de18bd0da1c54a94a4`
-
-  const response = await fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${cityName}&appid=${apiKey}`)
+  const response = await fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${cityName}&appid=${weatherApiKey1}`)
   const data = await response.json()
   
   return {
@@ -44,18 +46,11 @@ export async function getCityLocation(cityName) {
   }
 }
 
-export async function getCityFromLatLong(lat, lon) {
-  const apiKey = `AIzaSyBBTBVgKMGeQRMyzyFT3ay-CvYF2ygTJ0I`
-  const url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat}, ${lon}&key=${apiKey}`
-  const response = await fetch(url)
-  const data = await response.json()
-}
-
 export async function geocodeThePlace(place) {
   let latitude;
   let longitude;
 
-  await fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${place}&appid=a81cb000c18ce6de18bd0da1c54a94a4`)
+  await fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${place}&appid=${weatherApiKey1}`)
     .then(res => res.json())
     .then(data => {
       latitude = data[0].lat
@@ -78,7 +73,7 @@ export async function getCurrentWeatherFromApi(place) {
     windSpeed: null,
   }
 
-  await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=a81cb000c18ce6de18bd0da1c54a94a4`)
+  await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${weatherApiKey1}`)
     .then(res => res.json())
     .then(data => {
       newWeather.city = data.name

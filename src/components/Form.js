@@ -1,11 +1,9 @@
 import React, { useState } from 'react'
 import {convertUnixTimestampToTime, 
-  getCityLocation, getBrowserLocation, getCityFromLatLong, getCurrentWeatherFromApi, fetch5Day3HoursWeather, format5Day3HoursWeatherData, formatForNext4DataForChart} from '../utils/utils.js'
+  getCityLocation, getBrowserLocation, getCurrentWeatherFromApi, fetch5Day3HoursWeather, format5Day3HoursWeatherData, formatForNext4DataForChart} from '../utils/utils.js'
 
 
 export default function Form(props) {
-  const apiKey = `a81cb000c18ce6de18bd0da1c54a94a4`
-
   function handleInputChange(e) {
     props.setLocation(e.target.value)
   }
