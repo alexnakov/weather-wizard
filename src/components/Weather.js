@@ -1,58 +1,63 @@
-import React from 'react'
+import React, { createContext, useState } from 'react'
 import { allKeysAreNull } from '../utils/utils'
-import { WiDaySunny, WiThunderstorm, WiRain, WiSnow, WiCloud, WiDaySprinkle, WiDayFog } from 'weather-icons-react'
+import { iconDescriptionMap } from '../utils/constants'
+import Day from './Day'
+import Today from './Today'
+import TempGraph from './TempGraph'
+
+export const Context = createContext()
 
 export default function Weather(props) {
+  const [clickedArr, setClickedArr] = useState([1, 0, 0, 0])
+  const [celciusOrFahrenheit, setCelciusOrFahrenheit] = useState(true) // true if celcius, false is fahrenheit
 
-  const iconDescriptionMap = {
-    "Clear": <WiDaySunny className="w-icon"/>,
-    "Thunderstorm": <WiThunderstorm  className="w-icon"/>,
-    "Drizzle": <WiDaySprinkle  className="w-icon"/>,
-    "Rain": <WiRain  className="w-icon"/>,
-    "Snow": <WiSnow  className="w-icon"/>,
-    "Clouds": <WiCloud  className="w-icon"/>,
-    "Mist": <WiDayFog  className="w-icon"/>,
-    "Smoke": <WiDayFog  className="w-icon"/>,
-    "Haze": <WiDayFog  className="w-icon"/>,
-    "Dust": <WiDayFog  className="w-icon"/>,
-    "Fog": <WiDayFog  className="w-icon"/>
+  function clickDay(dayID) {
+    let newArr = [0, 0, 0, 0]
+    newArr[dayID] = 1
+    setClickedArr(newArr)
   }
 
   const viewTemplate = (
-    <>
+    <Context.Provider value={[celciusOrFahrenheit, setCelciusOrFahrenheit]}>
       <h2 style={{textAlign: 'center'}}>
-        {props.weather.city}, {props.weather.country}
+        {props.currentWeather.city}, {props.currentWeather.country}
       </h2>
       <div className='weather-container-grid'>
         <div className='today-container'>
-          <div className='top'>
-            {iconDescriptionMap[props.weather.mainDescription]}
-            <div className="temp-unit-static-container">
-              <div className='rel-container'>
-                <div className='temp'>{props.weather.temperature}</div>
-                <div className='unit-container'>
-                  <span>C</span>
-                  <span>|</span>
-                  <span>F</span>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className='bottom'>
-            <p className='day-stat'>Cloudiness: {props.weather.cloudiness} %</p>
-            <p className='day-stat'>Humidity: {props.weather.humidity} %</p>
-            <p className='day-stat'>Wind: {props.weather.windSpeed} m/s</p>
-          </div>
+          <Today currentWeather={props.currentWeather} />
         </div>
-        <div className='graph-container'></div>
-        <div className='five-day-container'></div>
+        <div className='graph-container'>
+          <TempGraph data={props.next4DayDataForChart[clickedArr.indexOf(1)]}/>
+        </div>
+        <div className='four-day-container'> 
+          <Day 
+            clickedArr={clickedArr}
+            clickDay={clickDay}
+            dayIndex={0} 
+            next4DaysWeather={props.next4DaysWeather[0]} />
+          <Day 
+            clickedArr={clickedArr}
+            clickDay={clickDay}
+            dayIndex={1} 
+            next4DaysWeather={props.next4DaysWeather[1]} />
+          <Day 
+            clickedArr={clickedArr}
+            clickDay={clickDay}
+            dayIndex={2} 
+            next4DaysWeather={props.next4DaysWeather[2]} />
+          <Day 
+            clickedArr={clickedArr}
+            clickDay={clickDay}
+            dayIndex={3} 
+            next4DaysWeather={props.next4DaysWeather[3]} />
+        </div>
       </div>
-    </>
-      )
+    </Context.Provider>
+  )
 
   return (
     <div>
-      {allKeysAreNull(props.weather) ? 
+      {allKeysAreNull(props.currentWeather) ? 
       <h2 style={{textAlign: 'center'}}>Enter a city</h2> : viewTemplate}
     </div>
   )
