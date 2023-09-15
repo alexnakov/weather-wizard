@@ -42,6 +42,24 @@ export async function geocodeThePlace(place) {
   return ([latitude, longitude])
 }
 
+export function getBroswerLocation() {
+  /**
+   * @returns {Array} = [Latitude, Longitude] of current machine
+   */
+  return new Promise((resolve, reject) => {
+    navigator.geolocation.getCurrentPosition((position) => {
+      resolve([position.coords.latitude, position.coords.longitude])
+    }, 
+    (error) => reject(error))
+  })
+}
+
+export async function one11() {
+  const data = await getBroswerLocation()
+  console.log(data)
+  console.log(3)
+}
+
 export async function getCurrentWeatherFromApi(place) {
   const [latitude, longitude] = await geocodeThePlace(place)
 

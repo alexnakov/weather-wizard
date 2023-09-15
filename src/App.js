@@ -2,7 +2,7 @@ import './App.css';
 import Form from './components/Form';
 import Weather from './components/Weather';
 import { useState } from 'react';
-import { fetch5Day3HoursWeather, format5Day3HoursWeatherData, getNext4DaysData, formatForNext4DataForChart } from './utils/utils';
+import { fetch5Day3HoursWeather, format5Day3HoursWeatherData, getNext4DaysData, formatForNext4DataForChart, getBrowserLatLong, one11 } from './utils/utils';
 
 function App() {
   const [location, setLocation] = useState("")
@@ -20,6 +20,7 @@ function App() {
 
   return (
     <div className="App">
+      <button onClick={() => one11()}>Click me</button>
       <header>Weather Wizard</header>
       <Form 
         location={location} 
