@@ -20,7 +20,7 @@ function App() {
 
   return (
     <div className="App">
-      <button onClick={() => one11()}>Click me</button>
+      <button>Click me</button>
       <header>Weather Wizard</header>
       <Form 
         location={location} 

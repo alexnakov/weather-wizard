@@ -16,7 +16,7 @@ export function allKeysAreNull(weatherObj) {
   return Object.keys(weatherObj).every(key => weatherObj[key] === null);
 }
 
-export async function getCityLocation(cityName) {
+export async function getLatLongFromNameOfPlace(cityName) {
   const response = await fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${cityName}&appid=${weatherApiKey}`)
   const data = await response.json()
   
@@ -54,10 +54,33 @@ export function getBroswerLocation() {
   })
 }
 
-export async function one11() {
-  const data = await getBroswerLocation()
-  console.log(data)
-  console.log(3)
+export async function getWeatherOfBrowserLocationFromApi(lat, lon) {
+  const [latitude, longitude] = await getBroswerLocation()
+
+  let newWeather = {
+    city: null,
+    country: null,
+    mainDescription: null, 
+    temperature: null,
+    cloudiness: null,
+    humidity: null,
+    windSpeed: null,
+  }
+
+  await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${weatherApiKey}`)
+    .then(res => res.json())
+    .then(data => {
+      newWeather.city = data.name
+      newWeather.country = data.sys.country
+      newWeather.mainDescription = data.weather[0].main
+      newWeather.temperature = Math.round(data.main.temp - 273) // celcius, int 
+      newWeather.cloudiness = data.clouds.all
+      newWeather.humidity = data.main.humidity
+      newWeather.windSpeed = data.wind.speed
+    })
+    .catch(err => new Error(err))
+
+  return newWeather
 }
 
 export async function getCurrentWeatherFromApi(place) {

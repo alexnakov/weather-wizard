@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
-import {convertUnixTimestampToTime, 
-  getCityLocation, getCurrentWeatherFromApi, fetch5Day3HoursWeather, format5Day3HoursWeatherData, formatForNext4DataForChart} from '../utils/utils.js'
+import {convertUnixTimestampToTime, getCurrentWeatherFromApi, fetch5Day3HoursWeather, format5Day3HoursWeatherData, formatForNext4DataForChart, getWeatherOfBrowserLocationFromApi, getBroswerLocation} from '../utils/utils.js'
 
 
 export default function Form(props) {
@@ -8,6 +7,14 @@ export default function Form(props) {
     props.setLocation(e.target.value)
   }
   
+  async function handleMyLocationBtn(e) {
+    e.preventDefault()
+
+    const [lat, lon] = await getBroswerLocation()
+    const newWeather = await getWeatherOfBrowserLocationFromApi()
+
+  } 
+
   async function handleSubmitCity(e) {
     e.preventDefault()
     if (props.location === "") {
@@ -39,7 +46,7 @@ export default function Form(props) {
         <input 
           type='submit' 
           value='My Location' 
-          onClick={e => e.preventDefault() }/>
+          onClick={e => handleMyLocationBtn(e)}/>
       </div>
     </form>
   )
