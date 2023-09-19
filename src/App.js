@@ -20,7 +20,6 @@ function App() {
 
   return (
     <div className="App">
-      <button>Click me</button>
       <header>Weather Wizard</header>
       <Form 
         location={location} 
